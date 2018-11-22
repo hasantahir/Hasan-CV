@@ -1,0 +1,1039 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of ??                                  %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %%
+%% LaTeX to get the ``??'' replaced with the number of the last page  %%
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[10pt]{article}
+\RequirePackage[T1]{fontenc}
+
+% LaTeX will typeset using Computer Modern Roman, which a lot of
+% non-mathematicians and non-engineers won't like. Also, a few PDF
+% viewers may not render CMR very well. Instead, Times New Roman can
+% be used. That's what this package does.
+\usepackage{times}
+
+% The automated optical recognition software used to digitize resume
+% information works best with fonts that do not have serifs. This
+% command uses a sans serif font throughout. Uncomment both lines (or at
+% least the second) to restore a Roman font (i.e., a font with serifs).
+% (NOTE: This requires the times package above)
+% \renewcommand{\familydefault}{\sfdefault}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+
+% This package helps LaTeX auto-hyphenate hyphenated words if you use
+% special hyphens. For example, bio\-/mimicry will properly hyphenate
+% ``mimicry'' if necessary.
+% \usepackage[shortcuts]{extdash}
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+%
+%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+%
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+%
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+%
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+%
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+%
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+%
+
+% %% Use these lines for letter-sized paper
+\usepackage[paper=a4paper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=1.0in,     % Length of section titles
+            marginparsep=.05in,       % Space between titles and text
+            margin=1in,               % 1 inch margins
+            includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+% \usepackage[paper=a4paper,
+%            %includefoot, % Uncomment to put page number above margin
+%            marginparwidth=30.5mm,    % Length of section titles
+%            marginparsep=1.5mm,       % Space between titles and text
+%            margin=25mm,              % 25mm margins
+%            includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+% Provides special list environments and macros to create new ones
+\usepackage[shortlabels]{enumitem}
+
+% Simpler bibsections for CV sections
+% (thanks to natbib for inspiration)
+%
+% * For lists of references with hanging indents and no numbers:
+%
+%   \begin{bibsection}
+%       \item ...
+%   \end{bibsection}
+%
+% * For numbered lists of references (with hanging indents):
+%
+%   \begin{bibenum}
+%       \item ...
+%   \end{bibenum}
+%
+%   Note that bibenum numbers continuously throughout. To reset the
+%   counter, use
+%
+%   \restartlist{bibenum}
+%
+%   at the place where you want the numbering to reset.
+
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{1em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+\newlist{bibsection}{itemize}{3}
+\setlist[bibsection]{label=,leftmargin=\bibhang,%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\newlist{bibenum}{enumerate}{3}
+\setlist[bibenum]{label=[\arabic*],resume,leftmargin={\bibhang+\widthof{[999]}},%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\let\oldendbibenum\endbibenum
+\def\endbibenum{\oldendbibenum\vspace{-.6\baselineskip}}
+\let\oldendbibsection\endbibsection
+\def\endbibsection{\oldendbibsection\vspace{-.6\baselineskip}}
+\makeatother
+
+%% Reference the last page in the page number
+%
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers (make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% HEADING AT TOP OF CURRICULUM VITAE
+
+% The title (name) with a horizontal rule under it
+% (optional argument typesets an object right-justified across from name
+%  as well)
+%
+% Usage: \makeheading{name}
+%        OR
+%        \makeheading[right_object]{name}
+%
+% Place at top of document. It should be the first thing.
+% If ``right_object'' is provided in the square-braced optional
+% argument, it will be right justified on the same line as ``name'' at
+% the top of the CV. For example:
+%
+%       \makeheading[\emph{Curriculum vitae}]{Your Name}
+%
+% will put an emphasized ``Curriculum vitae'' at the top of the document
+% as a title. Likewise, a picture could be included:
+%
+%   \makeheading[{\includegraphics[height=1.5in]{my_picture}}]{Your Name}
+%
+% the picture will be flush right across from the name. For this example
+% to work, make sure the extra set of curly braces is included. Also
+% makes ure that \usepackage{graphicx} is somewhere in the preamble.
+\newcommand{\makeheading}[2][]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+             {\large \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+%%% SECTION HEADINGS
+
+% The section headings. Flush left in small caps down pseudo-margin.
+%
+% Usage: \section{section name}
+\renewcommand{\section}[1]{\pagebreak[3]%
+    \vspace{1.3\baselineskip}%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
+    \noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\hyphenpenalty=10000\raggedright #1}}}%
+    \vspace{-\baselineskip}\par}
+
+%%% LISTS
+
+% This macro alters a list by removing some of the space that follows the list
+% (is used by lists below)
+\newcommand*\fixendlist[1]{%
+    \expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
+
+% These macros help ensure that items in outer-type lists do not get
+% separated from the next line by a page break
+% (they are used by lists below)
+\let\originalItem\item
+\newcommand*\fixouterlist[1]{%
+    \expandafter\let\csname preFixOuterList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\def\item{\pagebreak[2]\oldItem}\csname preFixOuterList#1\endcsname}
+    \expandafter\let\csname preFixOuterListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\let\item\oldItem\csname preFixOuterListend#1\endcsname}}
+\newcommand*\fixinnerlist[1]{%
+    \expandafter\let\csname preFixInnerList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\let\item\originalItem\csname preFixInnerList#1\endcsname}
+    \expandafter\let\csname preFixInnerListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixInnerListend#1\endcsname\let\item\oldItem}}
+
+% An itemize-style list with lots of space between items
+%
+% Usage:
+%   \begin{outerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{outerlist}
+\newlist{outerlist}{itemize}{3}
+    \setlist[outerlist]{label=\enskip\textbullet,leftmargin=*}
+    \fixendlist{outerlist}
+    \fixouterlist{outerlist}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{lonelist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{lonelist}
+\newlist{lonelist}{itemize}{3}
+    \setlist[lonelist]{label=\enskip\textbullet,leftmargin=*,partopsep=0pt,topsep=0pt}
+    \fixendlist{lonelist}
+    \fixouterlist{lonelist}
+
+% An itemize-style list with little space between items
+%
+% Usage:
+%   \begin{innerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{innerlist}
+\newlist{innerlist}{itemize}{3}
+    \setlist[innerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixinnerlist{innerlist}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{loneinnerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{loneinnerlist}
+\newlist{loneinnerlist}{itemize}{3}
+    \setlist[loneinnerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixendlist{loneinnerlist}
+    \fixinnerlist{loneinnerlist}
+
+%%% EXTRA SPACE
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[3]}
+\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
+
+%%% FORMATTING MACROS
+
+% Provides a linked \doi{#1} that links doi:#1 to http://dx.doi.org/#1
+\usepackage{doi}
+% To change the text before the DOI, adjust this command
+%\renewcommand\doitext{doi:}
+
+% Provides a linked \url{#1} that doesn't require escape characters
+\usepackage{url}
+
+% You can adjust the style \url{} uses here:
+% (options are: same, rm, sf, tt; defaults to tt)
+\urlstyle{tt}
+
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+% (uncomment to typeset the e\-/mail address in typewriter font;
+%  otherwise, will be typeset in the \urlstyle above)
+%\DeclareUrlCommand\emaillink{\urlstyle{tt}}
+\providecommand*\emaillink[1]{\nolinkurl{#1}}
+\providecommand*\email[1]{\href{mailto:#1}{\emaillink{#1}}}
+
+\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em \TeX}}
+\providecommand\Matlab{\textsc{Matlab}}
+
+% Custom hyphenation rules for words that LaTeX has trouble with
+\hyphenation{bio-mim-ic-ry bio-in-spi-ra-tion re-us-a-ble pro-vid-er Media-Wiki}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\makeheading{Hasan~Tahir~Abbas}
+
+\section{Contact Information}
+
+% NOTE: Mind where the & separators and \\ breaks are in the following
+%       table. Table is one row made up of three parboxes. The left
+%       parbox has address info, the middle parbox has a vertical bar,
+%       and the right parbox has phone and electronic contact
+%       information.
+%
+% MACROS: \rcollength is the width of the right column of the table
+%             (adjust it to your liking; default is 1.85in).
+%         \spacewidth is width of area between left and right boxes.
+%
+\newlength{\rcollength}\setlength{\rcollength}{1.85in}%
+\newlength{\spacewidth}\setlength{\spacewidth}{20pt}
+%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength-\spacewidth}@{}p{\spacewidth}@{}p{\rcollength}}%
+
+% Address box
+\parbox{\textwidth-\rcollength-\spacewidth}{%
+267 Texas A\&M Engineering Building\\
+Qatar Foundation,\\
+Education City, Doha,\\
+Qatar PO Box 23874.}
+
+% Uncomment to add a vertical bar in middle of contact information
+%{\vrule width 0.5pt}
+\parbox[m][.2\baselineskip]{.4\spacewidth}{} &
+
+% Non-snail-mail contact information
+\parbox{1.2\rcollength}{%
+\text{Cell:} +974-3372-4994 \\
+\text{E-mail:} \email{hasantahir@tamu.edu}\\
+}
+\end{tabular}
+%%
+%% In modern CV's, it seems like ``Objective'' is frowned upon. Instead,
+%% incorporate it into a well-constructed cover letter. The ``More
+%% information'' can go at the end of the CV, but it should not distract
+%% from the section giving references available to contact.
+%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% OBJECTIVE
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+\section{Short Biography}
+
+{Dr. Hasan T. Abbas has more than 5 years of teaching and research experience at prestigious institutions that include Texas A\&M University, Texas A\&M University at Qatar, and University of Engineering \& Technology Lahore. Dr. Abbas has contributed to more than 20 research publications and a book chapter in some of the leading journals and peer-reviewed conferences in the fields of plasmonics and electromagnetic theory.  He was the recipient of the prestigious Fulbright Scholarship to pursue his graduate studies. Dr. Abbas has vast experience of teaching undergraduate level courses for which he received numerous awards of excellence. He is a member of the IEEE and a reviewer of several prestigious journals in his field.}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% EDUCATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Education}
+
+\href{http://www.tamu.edu/}\textbf{{Texas A\& M University}},
+College Station, TX, USA.
+\begin{outerlist}
+
+\item[] Ph.D.,
+        \href{http://engineering.tamu.edu/electrical/}
+             {Electrical Engineering},
+             Aug. 2017
+        \begin{innerlist}
+
+        \item[] Dissertation: \emph{Plasmonic Devices in the Terahertz and Optical Frequency domains}
+        \item[] Adviser:
+              \href{http://engineering.tamu.edu/electrical/people/rnevels}
+                   {Professor Robert D. Nevels}
+        \item[] GPA 4.0
+        \item[] Area of Study: Electromagnetic Theory and Numerical Analysis
+        \end{innerlist}
+\end{outerlist}
+\halfblankline
+
+\href{http://uet.edu.pk/}\textbf{{University of Engineering \& Technology}},
+Lahore, Pakistan.
+\begin{outerlist}
+\item[] B.Sc.,
+        \href{http://uet.edu.pk/faculties/facultiesinfo/department?RID=introduction&id=9}
+             {Electrical Engineering}, Jul. 2009
+        \begin{innerlist}
+        \item[] With Honors
+        \item[] Specialization in Telecommunication and Computer Science
+        \end{innerlist}
+
+\end{outerlist}
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH INTERESTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \section{Research Interests}
+
+% {Electromagnetic wave propagation, Plasmonics, Numerical Electromagnetics, Miniaturized on-chip Antennas, Two-dimensional Physics and Materials}
+
+% \section{Objective}
+% %
+% Placement in an academic position that allows for advanced research in lower dimensional physics with an emphasis on nanoscale electromagnetic wave phenomena in plasmonic media, and an opportunity to share knowledge with others through teaching.
+% 
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% WORK EXPERIENCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Current Academic Appointments}
+
+\textbf{Postdoctoral Research Associate},
+            \href{http://www.qatar.tamu.edu/}{Texas A\& M University at Qatar}
+            \hfill {April 2018 to present}
+\begin{innerlist}
+
+    \item[] \href{https://www.qatar.tamu.edu/programs/ecen/}{Department of Electrical \& Computer Engineering}
+    \begin{innerlist}
+        \item Affiliations:
+            \begin{innerlist}
+                \item[] \href{https://www.qatar.tamu.edu/programs/ecen/research/center-for-remote-healthcare-technology-extension}{Center for Remote Health \& Technologies at Qatar}
+            \end{innerlist}
+                \item Responsibilities:
+            \begin{innerlist} [itemsep=1mm]
+                \item[] Develop a smart, non-invasive hand tremor sensor that can detect the onset of hypoglycemia
+                \item[] Develop an ultrasonic imaging system to monitor the structural degradation of bioabsorbable cardiovascular stents
+                \item[] Machine learning techniques to predict future development of type 2 diabetes
+                \item[] Organize seminars, workshops and special sessions related to remote health-care
+                \item[] Serve as a liaison with local and international collaborators
+            \end{innerlist}
+    \end{innerlist}
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Instructor},
+            \href{http://www.tamu.edu/}{Texas A\& M University at Qatar}
+            \hfill {August 2018 to present}
+\begin{innerlist}
+        \item Courses:
+            \begin{innerlist}
+                \item[] {ECEN 314 - Signals \& Systems}
+                \item[] {ECEN 403 - Electrical Design Laboratory 1}
+            \end{innerlist}
+\end{innerlist}
+\halfblankline
+
+\section{Previous Academic Appointments}
+
+\textbf{Lecturer},
+            \href{http://www.uet.edu.pk/}{UET Lahore, Pakistan}
+            \hfill {August 2017 to February 2018}
+\begin{innerlist}
+
+    \item[] \href{http://www.uet.edu.pk/faculties/facultiesinfo/department?RID=introduction&id=30}{Department of Electrical Engineering \& Technology}
+\end{innerlist}
+            
+\halfblankline
+
+\textbf{Fulbright Scholar},
+            \href{http://www.tamu.edu/}{Texas A\& M University}
+            \hfill {August 2012 to August 2017}
+\begin{innerlist}
+
+    \item[] \href{http://engineering.tamu.edu/electrical}{Department of Electrical \& Computer Engineering}
+    \begin{innerlist}
+        \item Affiliations:
+            \begin{innerlist}
+                \item[] \href{http://ee.tamu.edu/~eml/}{Electromagnetics \& Microwave Laboratory}
+                \item[] \href{http://iqse.tamu.edu/}{Institute of Quantum Science \& Engineering}
+            \end{innerlist}
+    \end{innerlist}
+
+\end{innerlist}
+
+
+\halfblankline
+
+\textbf{Instructor},
+            \href{http://www.tamu.edu/}{Texas A\& M University}
+            \hfill {August 2014 to December 2016}
+\begin{innerlist}
+        \item Courses:
+            \begin{innerlist}
+                \item[] {ECEN 322 - Electric \& Magnetic Fields}
+                \item[] {ECEN 445 - Applied Electromagnetic Theory}
+            \end{innerlist}
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Lecturer},
+            \href{http://www.uet.edu.pk/}{UET Lahore, Pakistan}
+            \hfill {August 2009 to August 2012}
+\begin{innerlist}
+
+    \item[] \href{http://www.uet.edu.pk/faculties/facultiesinfo/department?RID=introduction&id=30}{Department of Electrical Engineering \& Technology}
+    \begin{innerlist}
+        \item Courses:
+            \begin{innerlist}
+                \item {Electromagnetic Theory}
+                \item {Antennas and Wave Propagation}
+                \item {Applied Electromagnetics}
+            \end{innerlist}
+        \item Laboratories:
+            \begin{innerlist}
+                \item {Microwave and Antennas Laboratory}
+                \item {Communication Systems}
+            \end{innerlist}
+    \end{innerlist}
+
+\end{innerlist}
+
+\halfblankline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% TEACHING EXPERIENCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Teaching Experience}
+
+\href{http://www.qatar.tamu.edu/}{\textbf{Texas A\&M University at Qatar}},
+Doha, Qatar
+\begin{outerlist}
+\item[] \textit{Instructor} \hfill \textbf{Fall 2018}
+    \begin{innerlist}
+        \item ECEN~314: Signals \& Systems
+        \begin{innerlist}
+            \item[] Undergraduate course
+            \item[] Main instructor: Khalid A. Qaraqe
+        \end{innerlist}
+    \end{innerlist}
+
+\item[] \textit{Instructor} \hfill \textbf{Fall 2018}
+    \begin{innerlist}
+        \item ECEN~403: Electrical Design Laboratory 1
+        \begin{innerlist}
+            \item[] Senior Design Project
+            \item[] Main instructor: Khalid A. Qaraqe
+        \end{innerlist}
+    \end{innerlist}
+\end{outerlist}
+
+\halfblankline
+
+\href{http://www.tamu.edu/}{\textbf{Texas A\&M University}},
+College Station, TX
+\begin{outerlist}
+\item[] \textit{Instructor} \hfill \textbf{Spring 2016}
+    \begin{innerlist}
+        \item ECEN~322: Electric and Magnetic Fields
+        \begin{innerlist}
+            \item[] Undergraduate course
+            \item[] Main instructor: Robert D. Nevels
+        \end{innerlist}
+    \end{innerlist}
+
+\item[] \textit{Instructor} \hfill \textbf{Fall 2015}
+    \begin{innerlist}
+        \item ECEN~445: Applied Electromagnetic Theory
+        \begin{innerlist}
+            \item[] Undergraduate course
+            \item[] Main instructor: Robert D. Nevels
+        \end{innerlist}
+    \end{innerlist}
+
+\item[] \textit{Instructor} \hfill \textbf{Spring 2015}
+    \begin{innerlist}
+        \item ECEN~351: Applied Electromagnetics
+        \begin{innerlist}
+            \item[] Undergraduate course
+            \item[] Main instructor: Robert D. Nevels
+        \end{innerlist}
+    \end{innerlist}
+
+\end{outerlist}
+
+\halfblankline
+
+\href{http://www.uet.edu.pk/}{\textbf{UET Lahore, KSK Campus, Pakistan}}
+\begin{outerlist}
+
+\item[] \textit{Lecturer}%
+    \hfill \textbf{August 2009 to August 2012}
+    \begin{innerlist}
+        \item[] Instructor for EE~480: Antennas and Propagation
+        \item[] Instructor for EE~380: Electromagnetic Theory
+        \item[] Instructor for EE~381: Applied Electromagnetic Theory
+    \end{innerlist}
+
+\item[] \textit{Lab In-charge}
+    \hfill \textbf{December 2009 to August 2012}
+    \begin{innerlist}
+        \item[] Set up Microwave and Antennas Laboratory
+        \item[] Authored Antennas lab manual
+        \end{innerlist}
+
+\item[] \textit{Lab Instructor}
+\hfill \textbf{Spring 2012}
+    \begin{innerlist}
+        \item[] EE~360: Communication Systems
+    \end{innerlist}
+\end{outerlist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% Publications
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Journal Publications}
+\begin{bibenum}
+\item[2018] H.~T.~, Abbas, X.~, Zeng, R.~D.~, Nevels, M.~S.~, Zubairy, ``Deep sub-wavelength imaging via tunable terahertz plasmons'', Applied Physics Letters 113 (5), 051106.
+
+\item[2018] H.~T.~, Abbas, R.~D.~, Nevels, K.~A.~, Michalski, ``An Integral Equation Scheme for Two-dimensional Electromagnetic Systems'', \emph{to appear in IEEE Transactions of Antennas \& Propagation}.
+
+\item[2018] H.~T.~, Abbas, L.~, Alic, M.~, Erraguntla,  Q.~, Abbasi,  M.~, AbdulGhani,  M.~, Qaraqe, ``Using Oral Glucose Tolerance Test and Support Vector Machine to predict Type 2 Diabetes'', \emph{submitted to IEEE Journal of Biomedical Health \& Informatics}.
+
+\item[2018] M.~, Shafiqul-Islam, H.~T.~, Abbas, M.~, Erraguntla,  Q.~, Abbasi,  M.~, AbdulGhani,  M.~, Qaraqe,, ``Predicting Future Progression of Type 2 Diabetes
+Through Applying Machine Learning Approaches'', \emph{submitted to IEEE Access}.
+
+\item[2018] A.~, Zahid, H.~T.~, Abbas, A.~, Alomainy, Q.~, Abbasi, ``Determination of Plant Health using Terahertz Spectroscopy of leaves'', \emph{submitted to IEEE Transactions of Terahertz Science \& Technology}.
+
+\end{bibenum}
+% \vspace{0.1in}
+%
+% % Add a little space to nudge next ``Ref'd Journal Publications'' marginpar
+% % down to make room for tall ``Submitted Journal Publications''
+% % marginpar. If there are enough submitted journal publications, this
+% % space will not be needed (and should be removed).
+% \vspace{0.1in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% PUBLICATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Book Chapters}
+
+\begin{bibenum}
+    \item[2015]R.~D.~Nevels, H.~T.~Abbas, ``Optical Nanoantennas'', In Chapter in Handbook of Antenna Technologies, Springer Singapore, pp. 1-33, 2015.
+\end{bibenum}
+
+% Add a little space to nudge next ``Conference Publications'' marginpar
+% down to make room for tall ``Submitted Conference Publications''
+% marginpar. If there are enough submitted journal publications, this
+% space will not be needed (and should be removed).
+% \vspace{0.1in}
+
+
+
+\section{Conference Publications}
+
+\begin{bibenum}
+
+\item[2019] H.~T.~, Abbas, Q.~, Abbasi, Y.~, Boudjemline, Z.~, Hijazi, B.~, Mansoor, K.~, Qaraqe, ``Remote Monitoring of Absorbable Cardiovascular Stents using mm-waves'' In EuCAP, 2019 European Conference on Antennas \& Propagation.
+
+\item[2019] A.~, Abohmra, F.~, Jilani, H.~T.~, Abbas, A.~, Alomainy, M.~, Imran, Q.~, Abbasi, `` Terahertz Antenna based on Graphene for Wearable Applications'' In  EuCAP, 2019 European Conference on Antennas \& Propagation.
+
+\item[2019] L.~, Alic, H.~T.~, Abbas, M.~, Rios, M.~, Abdul-Ghani, K.~, Qaraqe, ``Predicting Diabetes in Healthy Population through Machine Learning'' In  HealtInf, 2019 International Conference on Health Informatics.
+
+\item[2018] H.~T.~, Abbas, R.~D.~, Nevels, ``Electromagnetic Field Scattering from a Thin Sheet'', In Antennas and Propagation \& USNC/URSI National Radio Science Meeting, 2018 IEEE International Symposium on.
+
+\item[2018] H.~, Abbas, K.~, Zahed, L.~, Alic, F.~, Sasangohar, R.~, Mehta, M.~, Lawley, Q.~, Abbasi, K.~, Qaraqe, ``A Wearable, Low-cost Hand Tremor Sensor for Detecting Hypoglycemic Events in Diabetic Patients'' In  RF \& Microwave, 2018 IEEE International Conference on.
+
+\item[2018] Y.~, Zhu, K.~, Zahed, R.~, Mehta, F.~, Sasangohar, M.~, Erraguntla, M.~, Lawley, H.~, Abbas, K.~, Qaraqe, ``Non-invasive Wearable System for Hypoglycemia Detection: A Proof of Concept User-Centered Design Process''. In Human Factors and Ergonomics Society's 62nd Annual Meeting, Proceedings of.
+
+\item[2017] H.~T.~, Abbas, R.~D.~, Nevels, ``An Integral Equation Scheme for Plasma based Thin Sheets'', In Antennas and Propagation \& USNC/URSI National Radio Science Meeting, 2017 IEEE International Symposium on.
+
+\item[2017] H.~T.~, Abbas, R.~D.~, Nevels, K.~A.~, Michalski , ``Plasma based Terahertz devices'', Wireless \& Microwave Circuits \& Systems, 2017 IEEE Texas Symposium on.
+\item[2016] H.~T.~, Abbas, R.~D.~, Nevels, ``Plasma based integrated on-chip antenna'', In Antennas and Propagation \& USNC/URSI National Radio Science Meeting, 2016 IEEE International Symposium on, pp. 1645-1646, 2016.
+\item[2015] J.~, Shin, H.~T.~, Abbas, R.~D.~, Nevels, ``A numerical method for the electromagnetic field time domain propagator equations'', In Antennas and Propagation \& USNC/URSI National Radio Science Meeting, 2015 IEEE International Symposium on, pp. 1480-1481, 2015.
+\item[2015] J.~, Shin, H.~T.~, Abbas, R.~D.~, Nevels, ``A numerical method for the electromagnetic field time domain propagator equations'', In Antennas and Propagation \& USNC/URSI National Radio Science Meeting, 2015 IEEE International Symposium on, pp. 1480-1481, 2015.
+\item[2015] H.~T.~, Abbas, J.~, Shin, R.~D.~, Nevels, ``Numerical techniques for evaluating electromagnetic field propagators'', In Computational Electromagnetics (ICCEM), 2015 IEEE International Conference on, pp. 22-23, 2015.
+\item[2014] R.~D.~, Nevels, K.~A.~, Michalski, H.~T.~, Abbas, ``Plasmonic and surface wave propagation in boundary layers in the microwave, THz, and optical regimes'', In Antenna Measurements \& Applications (CAMA), 2014 IEEE Conference on, pp. 1-3, 2014.
+
+\end{bibenum}
+
+\section{Talks}
+
+\begin{bibenum}
+
+    \item Current Trends in Remote Healthcare Technologies.
+        \emph{Texas A\&M University at Qatar}, Doha, Qatar, Nov., 2017.
+
+    \item Complex Plane Interpretation of Nano-Aperture Excited Plasmon Waves.
+        In: \emph{University of Electronic Science and Technology China (UESTC) National Summer School}, Chengdu, China, July, 2015.
+
+    \item A decomposition and interpretation of plasma and plasmonic waves.
+        In: \emph{Institute for Quantum Science and Engineering Workshop}, College Station, TX, January 13--14, 2015.
+
+    \item Twisted Waves: Concept and Limitations.
+        In: \emph{2013 IEEE AP-S/USNC-URSI Symposium}, Orlando, FL, July 7--13, 2013.
+
+\end{bibenum}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% Grant Writing
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Grant Writing}
+\begin{outerlist}
+\item[] \textit{QNRF NPRP 11-C} \hfill \textbf{Fall 2018}
+    \begin{innerlist}
+        \item[] Title: Early Detection, Prediction and Development of New Therapies to Improve the Lives of Children with Diabetes Mellitus in the State of Qatar
+        \begin{innerlist}
+            \item[] Under review (USD 5 million)
+        \end{innerlist}
+    \end{innerlist}
+
+\item[] \textit{TEES - RRSF 2018-2019} \hfill \textbf{Fall 2018}
+    \begin{innerlist}
+        \item[] Title: Remote Monitoring of Novel Biodegradable Cardiovascular Stents
+        \begin{innerlist}
+            \item[] Not Awarded
+        \end{innerlist}
+    \end{innerlist}
+\item[] \textit{Qatar University - IRCC 2018-2019} \hfill \textbf{Fall 2018}
+    \begin{innerlist}
+        \item[] Title: A Novel C-Reactive Protein Biosensor using CMOS-OFET for the Early Detection of Cardiovascular diseases
+        \begin{innerlist}
+            \item[] Under review (QAR 300k)
+        \end{innerlist}
+    \end{innerlist}
+\item[] \textit{Sidra Medicine - IRF 2018-2019} \hfill \textbf{Fall 2018}
+    \begin{innerlist}
+        \item[] Title: In-situ Monitoring of Novel Biodegradable Cardiovascular Stents - Design \& Validation
+        \begin{innerlist}
+            \item[] Awarded - QAR 250k
+        \end{innerlist}
+    \end{innerlist}
+    
+\end{outerlist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% AWARD
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Honors \& Awards}
+
+\href{http://foreign.fulbrightonline.org/}{Fulbright Foreign Student}  \vspace{0.1in}
+\begin{innerlist}
+    \item[] {Pursue Doctoral Degree at Texas A\&M University}, 2012--2017
+\end{innerlist}
+
+{2018 TAMUQ Research Excellence Travel Grant}  \vspace{0.1in}
+\begin{innerlist}
+    \item[] Department of Electrical \& Computer Engineering \& Technology, Texas A\&M University at Qatar, 2018
+\end{innerlist}
+
+{TAMU ECEN Travel Award} \vspace{0.1in}
+\begin{innerlist}
+    \item[] Department of Electrical \& Computer Engineering \& Technology, Texas A\&M University, 2017
+\end{innerlist}
+
+{Best Young Faculty} \vspace{0.1in}
+\begin{innerlist}
+    \item[] Department of Electrical Engineering \& Technology, UET Lahore, Pakistan, 2010-2011
+\end{innerlist}
+
+{Government Merit Scholarship}  \vspace{0.1in}
+\begin{innerlist}
+    \item[] Board of Intermediate \& Secondary Education, Multan Pakistan, 2003 - 2007
+\end{innerlist}
+
+{National Physics Talent Contest}
+\begin{innerlist}
+    \item[] Shortlisted for 9th International Physics Olympiad, Pakistan 2004
+\end{innerlist}
+
+{Travel Award}
+\begin{innerlist}
+    \item[] Department of Electrical \& Computer Engineering, Texas A\& University, 2017
+\end{innerlist}
+
+
+\section{Research Collaborations}
+
+\begin{enumerate}[itemsep=0mm]
+    \item Prof. Muhammad Abdul-Ghani, UT Health San Antonio, USA. 
+    \item Dr. Ali Boyaci, Istanbul Commerce University, Turkey.
+    \item Prof. Amin Jayyousi, Weill-Cornell Medicine, Qatar.
+    \item Dr. Muhammad Al-Amri, King Abdullah City of Science \& Technology, KSA.
+    \item Dr. Ebaa Al-Ozairi, Dasman Institute, Kuwait.
+    \item Prof. Lakshman Tamil, UT Dallas, USA.
+    \item Dr. Marwa Qaraqe, Hamad Bin Khalifa University, Qatar.
+    \item Dr. Anwarul Hasan, Qatar University, Qatar.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% SERVICE
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Professional Service}
+
+\textbf{Professional Memberships}
+\begin{innerlist}[itemsep=2mm]
+    \item[-] IEEE Antennas \& Propagation Society
+    \item[-] IEEE Microwave Theory \& Techniques Society
+    \item[-] American Physical Society
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Referee Service}
+\begin{innerlist}[itemsep=2mm]
+    \item[-] \emph{IEEE Antennas and Wireless Propagation Letters}
+    \item[-] \emph{IEEE Transactions on Antennas and Propagation}
+    \item[-] \emph{American Journal of Physics}
+    \item[-] \emph{IEEE Access}
+    \item[-] \emph{IEEE Journal of Electromagnetics, RF, and Microwaves in Medicine and Biology}
+    \item[-] \emph{IEEE Transactions on Nanobiotechnology}
+    \item[-] \emph{IEEE Transactions on Terahertz Science \& Technology}
+\end{innerlist}
+
+\halfblankline
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% SKILLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Software and Hardware Skills}
+
+Computer Programming:
+%
+\begin{innerlist}
+    \item[-] C, C\texttt{++}, Assembly 
+\end{innerlist}
+
+\halfblankline
+
+Numerical Analysis:
+%
+\begin{innerlist}
+    \item[-] \Matlab, Python
+\end{innerlist}
+
+\halfblankline
+
+Desktop Editing and Productivity Software:
+%
+\begin{innerlist}
+    \item[-] Atom, Git
+    \item[-] \TeX{} (\LaTeX{}, \BibTeX{}, PSTricks),
+    \item[-] Microsoft Office, Google Docs
+    \item[-] TikZ, InkScape
+\end{innerlist}
+
+\halfblankline
+
+Operating Systems:
+%
+\begin{innerlist}
+    \item[-] Microsoft Windows family, Linux (Ubuntu)
+\end{innerlist}
+
+\section{Expertise}
+
+Mathematics:
+%
+\begin{innerlist}
+    \item[-] PDE, Stability Analysis, Linear Algebra, Fourier Transforms
+\end{innerlist}
+
+\halfblankline
+
+Machine Learning:
+%
+\begin{innerlist}
+    \item[-] Support Vector Machines
+\end{innerlist}
+
+\halfblankline
+
+Embedded and Real\-time Systems:
+%
+\begin{innerlist}
+    \item[-] Software and hardware development with several MCU and
+        DSP platforms (e.g., Atmel ATmega MCU's, Microchip PIC MCU's, Arduino and others)
+\end{innerlist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% ACADEMIC SERVICE
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Student Mentoring}
+
+\begin{bibsection}
+    \item \textbf{Adnan Zahid}\\
+        PhD Student in Electrical \& Nanoscale Engineering, University of Glasgow, UK.
+        Terahertz based health monitoring of plant leaves.
+        2018
+
+    \item \textbf{Basat Abohmra}\\
+        PhD Student in Electrical \& Nanoscale Engineering, University of Glasgow, UK.
+        Graphene based Terahertz Antennas.
+        2018
+        
+    \item \textbf{Muhammad Shafiqul Islam}\\
+        PhD Student in College of Science \& Engineering, Hamad Bin Khalifa University, Qatar.
+        Ensemble based Classification Models for Diabetes Prediction.
+        2018
+        
+    \item \textbf{Marelyn Rios}\\
+        Senior year Student in Industrial \& Systems Engineering, Texas A\&M University, College Station
+        Predicting Future Risk of Type-2 Diabetes using Machine Learning.
+        2018
+
+    \item \textbf{Usman Samad}\\
+        Undergraduate student in Electrical and Computer Engineering, Texas A\&M University.
+        Modeling and Implementation of a Home Automation System.
+        2015.
+    
+    \item \textbf{Joanna Mahfouz}\\
+        Undergraduate student in Electrical and Computer Engineering, Texas A\&M University at Qatar.
+        Continuous glucose monitoring system for children.
+        2018.
+        
+    \item \textbf{Muhammad Tuzcu}\\
+        Summer Intern at, Texas A\&M University at Qatar.
+        Abnormal heartbeat detection in neonates.
+        2018.
+
+\end{bibsection}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% REFERENCES
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{References}
+\href
+{http://engineering.tamu.edu/electrical/people/rnevels}
+{\textbf{Dr.~Robert D.~Nevels}}
+(e\-mail:~\href{mailto:nevels@ece.tamu.edu}{nevels@ece.tamu.edu}; phone:~+1-979-845-7591)
+%
+\begin{innerlist}
+    \item Professor,
+        \href{http://engineering.tamu.edu/electrical/}{Department of Electrical \& Computer Engineering},
+        \href{http://www.tamu.edu/}{Texas A\&M University}
+    \item[$\diamond$] 205K WEB, Texas A\&M University, College Station, TX
+        77843-3128
+\end{innerlist}
+\halfblankline
+
+%
+\textbf{Dr.~Khalid ~Qaraqe}
+(e\-mail:~\href{mailto:khalid.qaraqe@qatar.tamu.edu}{khalid.qaraqe@qatar.tamu.edu}; phone:~+974-4423-0215)
+%
+\begin{innerlist}
+    \item Professor,
+        \href{http://engineering.tamu.edu/electrical/}{Department of Electrical \& Computer Engineering},
+        \href{http://www.tamu.edu/}{Texas A\&M University at Qatar}
+    \item[$\diamond$] 246 M, Texas A\&M Engineering Building, Education City, Doha Qatar
+        23874
+\end{innerlist}
+\halfblankline
+
+\textbf{Dr.~Kai ~Chang}
+(e\-mail:~\href{mailto:kaichang@tamu.edu}{kaichang@tamu.edu}; phone:~+1-979-845-5285)
+%
+\begin{innerlist}
+    \item Professor,
+        \href{http://engineering.tamu.edu/electrical/}{Department of Electrical \& Computer Engineering},
+        \href{http://www.tamu.edu/}{Texas A\&M University}
+    \item[$\diamond$] 205C WEB, Texas A\&M University, College Station, TX
+        77843-3128
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Dr.~Sohail ~Zubairy}
+(e\-mail:~\href{mailto:zubairy@physics.tamu.edu}{zubairy@physics.tamu.edu}; phone:~+1-979-862-4047)
+%
+\begin{innerlist}
+    \item Professor,
+        \href{http://physics.tamu.edu}{Department of Physics \& Astronomy},
+        \href{http://www.tamu.edu/}{Texas A\&M University}
+    \item[$\diamond$] MPHY 546, Texas A\&M University, College Station, TX
+        77843-3128
+\end{innerlist}
+
+\halfblankline
+%
+%
+%
+% \halfblankline
+
+% \nobibliography{my_citations}
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------%
+% The following is copyright and licensing information for
+% redistribution of this LaTeX source code; it also includes a liability
+% statement. If this source code is not being redistributed to others,
+% it may be omitted. It has no effect on the function of the above code.
+%----------------------------------------------------------------------%
+% Copyright (c) 2007, 2008, 2009, 2010, 2011 by Theodore P. Pavlic
+%
+% Unless otherwise expressly stated, this work is licensed under the
+% Creative Commons Attribution-Noncommercial 3.0 United States License. To
+% view a copy of this license, visit
+% http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to
+% Creative Commons, 171 Second Street, Suite 300, San Francisco,
+% California, 94105, USA.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+%----------------------------------------------------------------------%
